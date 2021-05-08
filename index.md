@@ -1,16 +1,7 @@
-<div style="direction: rtl; text-align: right">
-  <table>
-    <thead>
-      <tr>
-        <th>h1</th>
-        <th>h2</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>c1</td>
-        <td>c2</td>
-      </tr>
-    </tbody>
-  </table>
+<div dir="rtl">
+<h1>عنوان اول</h1>
 </div>
+<div dir="rtl">
+<p>این متن فارسی باید راست به چپ نشان داده شود.</p>
+</div>
+<p>This is the English paragraph, so it's direction in html should be left-to-right.</p>
