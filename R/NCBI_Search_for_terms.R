@@ -9,7 +9,7 @@ search_year <- function(year, term){
 terms <- c('bioinformatics')
 years  <- seq(1950,2020,1)
 #my_stat<-matrix(0,length(years),length(terms),byrow = T)
-my_stat<- data.frame(years = seq(1950,2020,1), Bioinformatics = 0)
+my_stat<- data.frame(years = seq(1950,2020,1), bioinformatics = 0)
 rownames(my_stat) <- my_stat$years
 for(t in 1:length(terms))
 {
@@ -18,9 +18,12 @@ for(t in 1:length(terms))
   for(i in 1:length(years))
   {
     cat('\r', years[i])
-    my_stat[i,t]<- sapply(years[i], search_year, term=terms[t], USE.NAMES=FALSE)
+    my_stat[i,'bioinformatics']<- sapply(years[i], search_year, term=terms[t], USE.NAMES=FALSE)
   }
 }
 
+
+pdf('Bionformatics_NCBI.pdf', width= 10, height = 7)
 ggplot(data = my_stat, aes(x = years, y = log10(bioinformatics))) + geom_line() + 
 theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "black"))
+dev.off()
