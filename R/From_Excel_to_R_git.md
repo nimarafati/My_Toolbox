@@ -10,7 +10,7 @@ Nima Rafati
 
 # Introduction
 
-In this tutorial we will learn how to use R by using examples fro excel
+In this tutorial we will learn how to use R by using examples from excel
 environment. Many of us have been using excel for any different
 purposes. With excel we can organise the data, plot, and even do some
 statistical analysis. However, there are some limitations. We cannot run
