@@ -13,8 +13,7 @@ Nima Rafati
 In this tutorial we will learn how to use R by using examples from excel
 environment. Many of us have been using excel for any different
 purposes. With excel we can organise the data, plot, and even do some
-statistical analysis. However, there are some limitations. We cannot run
-some complex analysis such as running linear models, or creating
+statistical analyses. However, there are some limitations. We cannot run complex analysis such as running linear models, or creating
 multipanel plots,….. Using VBA you can force excel to use some of the
 statistical models but you need to code in visual basic environment and
 it is not meant to do only statistical model. Moreover, it may become
@@ -22,7 +21,9 @@ more complicated. From reproducibility point of view R has definitely
 more potential than excel. Last but not least when it comes to
 publication, sharing the analysis by any codes (inculding R) is more
 popular.  
-\# Data type Regardless of which tool we use, we can categorize data in
+
+\# Data type  
+Regardless of which tool we use, we can categorize data in
 following groups:  
 \- Integer: Numbers  
 \- Logical: True or False  
