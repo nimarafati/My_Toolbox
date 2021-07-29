@@ -26,7 +26,7 @@ popular.
 Regardless of which tool we use, we can categorize data in
 following groups:  
 \- Integer: Numbers  
-\- Logical: True or False  
+\- Logical: True or False  or NA
 \- Character: text (Names)
 
 We store our data in variables which dependent on data format we can
