@@ -1,0 +1,41 @@
+# Question
+
+The statements has two parts:  
+1- Confidence interval of the POPULATION mean annual income is
+50000-80000.  
+2- The probability of the population mean to be within this range is
+95%.
+
+# Normal distribution
+
+    x=seq(-4,4,length=200)
+    y=1/sqrt(2*pi)*exp(-x^2/2)
+    plot(x,y,type="l",lwd=2,col="red", main="Normal Distribution")
+
+![](Normal_Distribution_files/figure-markdown_strict/unnamed-chunk-1-1.png)
+
+With 95% CI of the mean is calculated by :
+
+$\\overline{x} \\pm Z \\frac{\\sigma}{\\sqrt{N}}$
+
+Covering this part of the distribution.
+
+    x=seq(-4,4,length=200)
+    y=1/sqrt(2*pi)*exp(-x^2/2)
+    plot(x,y,type="l",lwd=2,col="red", main="Normal Distribution")
+    x=seq(-1.96,1.96,length=200)
+    y=dnorm(x)
+    polygon(c(-1.96,x,1.96),c(0,y,0),col="gray")
+
+![](Normal_Distribution_files/figure-markdown_strict/unnamed-chunk-2-1.png)
+
+So considering the hypothetical population that you have (100
+individuals) two parameters are calculated: mean and sd. Then we
+calculate confidence interval using above formula by choosing
+corresponding Z value. The interval indicates how much uncertainty we
+have in our estimation from a true parameter (mean). The narrower the
+interval the more reliable estimates we have. Thus it does not mean
+there is a 95% probability that the (true) parameter (mean) is within
+the range. Estimated mean annual income for AN INDIVIDUAL may or may not
+contain true mean. In other words, in 100 randomly selected individuals
+95 of them will have mean annual income within this range.
