@@ -1,3 +1,3 @@
 # Clustering  
 ## Terms  
-**Data snooping bias**: also known as **double-dipping**, cells that have been incorrectly forced to be in two groups/clusters may have differentially expressed genes with  with spuriously small p-values.  
+**Data snooping bias**: also known as **double-dipping**, cells that have been incorrectly forced to be in two groups/clusters may have differentially  expressed genes with  with spuriously small p-values.  This is because, for example, if we force a single population into two clusters, the algorithm will assign cells that are more similar to each other to the same group, but the statistical test does not take this selection into account when considering the null hypothesis. As a result, if one does not account for this statistical reality, over-clustered output can appear to show convincing differences. (Grabski et al., 2022; https://www.biorxiv.org/content/10.1101/2022.08.01.502383v1.full.pdf). 
