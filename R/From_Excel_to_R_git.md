@@ -58,8 +58,8 @@ A matrix with 20 rows (without header row) and five columns.
 
 </div>
 
-Now we create four vectors (Name, Gender, Age, Height, Grade) and save
-them as four variables. We can create variable as follows using
+Now we create five vectors (Name, Gender, Age, Height, Grade) and save
+them as five variables. We can create variable as follows using
 assignment operator (\<-), which you can replace by equal (=) but in
 order not to confuse them when we set parameters in functions it’s
 better to use assignment operator (\<-).
