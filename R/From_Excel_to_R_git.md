@@ -62,7 +62,8 @@ Now we create five vectors (Name, Gender, Age, Height, Grade) and save
 them as five variables. We can create variable as follows using
 assignment operator (\<-), which you can replace by equal (=) but in
 order not to confuse them when we set parameters in functions it’s
-better to use assignment operator (\<-).
+better to use assignment operator (\<-). To create a vector you should
+put characters or numbers in `c()`.  
 
 ``` r
 Name <- c("Alex",   "Nona", "Behdad",   "Aida", "Nima", "Nickan",   "Jenny",    "Angela",   "Martin",   "Donald",   "Saeed",    "Sara", "Farnaz",   "Leif", "Anders",   "Mahmoud",  "Lili", "Fatima",   "Elvin",    "Liam")
