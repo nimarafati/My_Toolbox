@@ -153,9 +153,12 @@ my_matrix[1,1]
 **Question** Extract fifth element of each column, in other words what
 are the values in fifth row in all columns?
 
-**Question** Replace following elements: \[1,1\], \[1,5\] ,\[20,2\], all
-elements in second *row*? Can you also replace all the values in 4th
-*column*?
+**Question** Replace following elements: 
+\[1,1\] with 100, 
+\[1,5\] with 200,
+\[20,2\] with 300,
+all elements in second *row* with 5? 
+Can you also replace all the values in 4th *column* with 100?
 
 Now we want to replace the data with vectors we created. First check the
 data type of *my\_matrix*.
