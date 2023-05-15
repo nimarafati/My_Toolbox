@@ -9,5 +9,9 @@
 - [ ] [Optimizing Xenium In Situ data utility by quality assessment and best practice analysis workflows](https://www.biorxiv.org/content/10.1101/2023.02.13.528102v1.full.pdf)
 - https://www.biorxiv.org/content/10.1101/2022.10.06.510405v1
 
+-[ ][bioimage model zoo](https://bioimage.io/#/)
+-[ ][BioImage Model Zoo: A Community-Driven Resource for Accessible Deep Learning in BioImage Analysis](https://www.biorxiv.org/content/10.1101/2022.06.07.495102v1)
+
+- https://ai4life.eurobioimaging.eu/
 - [ ] [Whole-body integration of gene expression and single-cell morphology](https://www.sciencedirect.com/science/article/pii/S009286742100876X)
 - [ ] 
