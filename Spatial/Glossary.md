@@ -26,3 +26,8 @@ In addition to CZI, there are numerous other image file formats used in the fiel
 
 These are just a few examples, and there are many other image formats available, each with its own strengths and applications. The choice of format depends on factors such as the type of data, intended use, compatibility requirements, and desired trade-off between image quality and file size.
 
+# Compression formats  
+## Lossless
+This is a reversible compression where there is no loss of information (2 - 10 times compressed).  
+## Lossy  
+As names explains it is non-reversible compression method which some information may be lost (10 - 30 times compressed).  
