@@ -1,4 +1,8 @@
-
+# Anatomy  
+## Regions of spine
+**Cervical** uppermost part of spine (C1-C7)  
+**Thoracic** or dorsal is the middle part of spine (T1-T12)  
+**Lumbar** Lower part of spine (L1-L5)  
 # Immunology  
 ## Resident immune cells  
 Cells adapted to local environment (tissues) and respond to pathogenes within that tissue.   
