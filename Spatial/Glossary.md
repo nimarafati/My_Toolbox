@@ -31,3 +31,17 @@ These are just a few examples, and there are many other image formats available,
 This is a reversible compression where there is no loss of information (2 - 10 times compressed).  
 ## Lossy  
 As names explains it is non-reversible compression method which some information may be lost (10 - 30 times compressed).  
+
+
+# Multiplex Immunofluorescence and Multispectral Imaging
+**Double-Dispensing:**
+Double-dispensing is a technique used in automated immunohistochemistry and immunofluorescence staining systems to apply reagents, such as antibodies or dyes, to tissue samples. It involves dispensing a specific reagent, for example, a primary antibody, washing the tissue to remove excess reagent, and then dispensing another reagent. This process can be repeated several times with different reagents, allowing for the sequential staining of multiple targets within the same tissue section. It is an essential step in multiplex staining to ensure that each target is labeled with the appropriate antibody or fluorophore.
+
+**Double-Dispensing Primary Antibodies:**
+When performing multiplex staining using the double-dispensing technique, primary antibodies specific to different target proteins are sequentially applied to the tissue sample. Each primary antibody recognizes a unique target, and after each dispensing step, the sample is washed to remove excess unbound antibodies before the next primary antibody is applied. This process enables the visualization of multiple proteins in the same tissue section, each with its unique antibody.
+
+**BOND RX:**
+BOND RX is an automated immunohistochemistry (IHC) and immunofluorescence (IF) staining platform developed by Leica Biosystems. It is designed for high-throughput, reliable, and standardized staining of tissue samples. BOND RX can be used for single or multiplex staining and offers features like precise reagent dispensing, incubation, and washing steps, making it well-suited for multiplex staining techniques, including double-dispensing. The system is used in research, clinical pathology, and diagnostics to analyze tissue samples for various biomarkers.
+
+**Opal Fluorophores:**
+Opal fluorophores are a set of fluorescent dyes specifically designed for multiplex immunofluorescence staining. These dyes are developed by PerkinElmer and are compatible with automated staining platforms like the BOND RX. Opal fluorophores are used in conjunction with primary antibodies to label specific target proteins in tissue samples. What makes Opal fluorophores unique is their spectral properties, which allow for the sequential imaging and quantification of multiple targets with minimal spectral overlap. Each Opal fluorophore has a distinct emission and can be used in combination to visualize different targets simultaneously.
