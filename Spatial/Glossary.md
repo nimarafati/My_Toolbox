@@ -45,3 +45,8 @@ BOND RX is an automated immunohistochemistry (IHC) and immunofluorescence (IF) s
 
 **Opal Fluorophores:**
 Opal fluorophores are a set of fluorescent dyes specifically designed for multiplex immunofluorescence staining. These dyes are developed by PerkinElmer and are compatible with automated staining platforms like the BOND RX. Opal fluorophores are used in conjunction with primary antibodies to label specific target proteins in tissue samples. What makes Opal fluorophores unique is their spectral properties, which allow for the sequential imaging and quantification of multiple targets with minimal spectral overlap. Each Opal fluorophore has a distinct emission and can be used in combination to visualize different targets simultaneously.
+
+
+
+# Translating Multispectral mIF into the Clinic  
+Requirements can be summarized into five categories: (1) flexibility to fully explore co-expression and spatial information; (2) analytical performance providing reproducibility and robustness; (3) workflow and standardization to support laboratory needs; (4) demonstrated clinical validation and utility; and (5) reimbursement from payers to support laboratory economics and clinical adoption.
