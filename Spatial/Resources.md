@@ -2,6 +2,7 @@
 - [ ] [Museum of spatial transcriptomics](https://www.nature.com/articles/s41592-022-01409-2)  
 - [x] [Multiplex Immunofluorescence and Multispectral Imaging: Forming the Basis of a Clinical Test Platform for Immuno-Oncology](https://www.frontiersin.org/articles/10.3389/fmolb.2021.674747/full)
 - [ ] [A comprehensive comparison on cell-type composition inference for spatial transcriptomics data](https://pubmed.ncbi.nlm.nih.gov/35753702/)
+- [ ] [Optimizing Xenium In Situ data utility by quality assessment and best practice analysis workflows](https://www.biorxiv.org/content/10.1101/2023.02.13.528102v1)
 ## Deconvolution 
 - [ ] [A comprehensive benchmarking with practical guidelines for cellular deconvolution of spatial transcriptomics](https://www.nature.com/articles/s41467-023-37168-7)
 - [ ] [A comprehensive comparison on cell type composition inference for spatial transcriptomics data](https://www.biorxiv.org/content/10.1101/2022.02.20.481171v1.full.pdf)
