@@ -1,0 +1,1 @@
+In this folder you will find link to papers which I found interesting. Please feel free to add articles that you think will be relevant. The _checkbox_ is just the indicator for myself to know which of the articles I have read so far. 
