@@ -13,3 +13,4 @@
 - [ ] [nfinder codes](https://github.com/santi-rodriguez/nfinder)  
 ## Integration/Multiomics
 - [ ] [Spatial multimodal analysis of transcriptomes and metabolomes in tissues](https://www.nature.com/articles/s41587-023-01937-y)
+- [ ] [Identifying temporal and spatial patterns of variation from multimodal data using MEFISTO](https://www.nature.com/articles/s41592-021-01343-9)
