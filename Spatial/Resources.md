@@ -14,3 +14,4 @@
 ## Integration/Multiomics
 - [ ] [Spatial multimodal analysis of transcriptomes and metabolomes in tissues](https://www.nature.com/articles/s41587-023-01937-y)
 - [ ] [Identifying temporal and spatial patterns of variation from multimodal data using MEFISTO](https://www.nature.com/articles/s41592-021-01343-9)
+- [ ] [scNMT-seq enables joint profiling of chromatin accessibility DNA methylation and transcription in single cells](https://www.nature.com/articles/s41467-018-03149-4)
