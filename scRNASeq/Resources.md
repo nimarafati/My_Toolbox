@@ -15,4 +15,8 @@
 
 - [ ] https://ai4life.eurobioimaging.eu/
 - [ ] [Whole-body integration of gene expression and single-cell morphology](https://www.sciencedirect.com/science/article/pii/S009286742100876X)
-- [ ] [confronting false discoveries in single-cell differential expression](https://www.nature.com/articles/s41467-021-25960-2 
+- [ ] [confronting false discoveries in single-cell differential expression](https://www.nature.com/articles/s41467-021-25960-2)
+- [ ] [Seurat](https://satijalab.org/seurat/)  
+- [ ] [SingleCellExperiment](https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html)  
+- [ ] [Monocole](https://cole-trapnell-lab.github.io/monocle-release/)  
+ 
