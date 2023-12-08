@@ -9,3 +9,5 @@
 - [ ] [A benchmark of batch-effect correction methods for single-cell RNA sequencing data](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1850-9)
 - [ ] [Identifying temporal and spatial patterns of variation from multimodal data using MEFISTO](https://www.nature.com/articles/s41592-021-01343-9)
 - [ ] [Multiomics study of nonalcoholic fatty liver disease](https://www.nature.com/articles/s41588-022-01199-5)
+- [ ] [Decoding gene regulation in the mouse
+embryo using single-cell multi-omics](https://www.biorxiv.org/content/10.1101/2022.06.15.496239v2.full.pdf)  
