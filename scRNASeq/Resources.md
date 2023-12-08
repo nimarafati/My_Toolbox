@@ -18,5 +18,6 @@
 - [ ] [confronting false discoveries in single-cell differential expression](https://www.nature.com/articles/s41467-021-25960-2)
 - [ ] [Seurat](https://satijalab.org/seurat/)  
 - [ ] [SingleCellExperiment](https://bioconductor.org/packages/release/bioc/html/SingleCellExperiment.html)  
-- [ ] [Monocole](https://cole-trapnell-lab.github.io/monocle-release/)  
+- [ ] [Monocole](https://cole-trapnell-lab.github.io/monocle-release/)
+- [ ] [Scanpy](https://scanpy.readthedocs.io/en/stable/)  
  
