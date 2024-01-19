@@ -3,8 +3,8 @@
 - [x] [Multiplex Immunofluorescence and Multispectral Imaging: Forming the Basis of a Clinical Test Platform for Immuno-Oncology](https://www.frontiersin.org/articles/10.3389/fmolb.2021.674747/full)
 - [ ] [A comprehensive comparison on cell-type composition inference for spatial transcriptomics data](https://pubmed.ncbi.nlm.nih.gov/35753702/)
 - [ ] [Optimizing Xenium In Situ data utility by quality assessment and best practice analysis workflows](https://www.biorxiv.org/content/10.1101/2023.02.13.528102v1)
-- [ ] [Spatial proteomics: a powerful
-discovery tool for cell biology](https://www.nature.com/articles/s41580-018-0094-y.pdf)  
+- [ ] [Spatial proteomics: a powerful discovery tool for cell biology](https://www.nature.com/articles/s41580-018-0094-y.pdf)
+- [ ] [STEM enables mapping of single-cell and spatial transcriptomics data with transfer learning](https://www.nature.com/articles/s42003-023-05640-1)
 ## Deconvolution 
 - [ ] [A comprehensive benchmarking with practical guidelines for cellular deconvolution of spatial transcriptomics](https://www.nature.com/articles/s41467-023-37168-7)
 - [ ] [A comprehensive comparison on cell type composition inference for spatial transcriptomics data](https://www.biorxiv.org/content/10.1101/2022.02.20.481171v1.full.pdf)
@@ -17,3 +17,4 @@ discovery tool for cell biology](https://www.nature.com/articles/s41580-018-0094
 - [ ] [Spatial multimodal analysis of transcriptomes and metabolomes in tissues](https://www.nature.com/articles/s41587-023-01937-y)
 - [ ] [Identifying temporal and spatial patterns of variation from multimodal data using MEFISTO](https://www.nature.com/articles/s41592-021-01343-9)
 - [ ] [scNMT-seq enables joint profiling of chromatin accessibility DNA methylation and transcription in single cells](https://www.nature.com/articles/s41467-018-03149-4)
+- [ ] [Robust mapping of spatiotemporal trajectories and cell–cell interactions in healthy and diseased tissues](https://www.nature.com/articles/s41467-023-43120-6)
