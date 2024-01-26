@@ -1,3 +1,4 @@
+- [ ] [Ten quick tips for avoiding pitfalls in multi-omics data integration analyses](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1011224)  
 - [ ] [The curse(s) of dimensionality by Naomi Altman & Martin Krzywinski](https://www.nature.com/articles/s41592-018-0019-)
 - [ ] [Drug-perturbation-based stratification of blood cancer by Dietrich et al (uses DIABLO)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5749541/)
 - [ ] [Applications of Bayesian network models in predicting types of hematological malignancies](https://www.nature.com/articles/s41598-018-24758-5)
