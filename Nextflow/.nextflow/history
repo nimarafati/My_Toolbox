@@ -1,0 +1,3 @@
+2022-07-15 13:42:41	2.7s	drunk_picasso	OK	f51c194c18b645e0b130541da5d06c0a	3f0682fb-7a3b-4efb-919f-26ef914aa807	nextflow run tst.nf
+2022-07-15 13:47:29	1.8s	voluminous_mercator	OK	5d06cc69339e0af6d769d7355fa63a28	5b37f080-2724-4912-af6b-ef6f88690f64	nextflow run tst.nf
+2022-07-15 13:52:03	2.1s	ridiculous_wright	OK	21188bf72fb55ec6be4a7192fdf78a50	54816a3e-5560-4470-94b8-272b33708164	nextflow run tst.nf

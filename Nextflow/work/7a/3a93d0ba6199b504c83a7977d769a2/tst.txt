@@ -1,0 +1,1 @@
+intermediateDir directory is: /home/nimar/nextflow_tutorial/intermediate//FastQC

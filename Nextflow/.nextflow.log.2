@@ -1,0 +1,48 @@
+juli-15 13:42:41.408 [main] DEBUG nextflow.cli.Launcher - $> nextflow run tst.nf
+juli-15 13:42:41.471 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 22.04.4
+juli-15 13:42:41.556 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
+juli-15 13:42:41.587 [main] INFO  nextflow.cli.CmdRun - Launching `tst.nf` [drunk_picasso] DSL2 - revision: f51c194c18
+juli-15 13:42:41.608 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; plugins-dir=/Users/nimra236/.nextflow/plugins; core-plugins: nf-amazon@1.7.2,nf-azure@0.13.2,nf-console@1.0.3,nf-ga4gh@1.0.3,nf-google@1.1.4,nf-sqldb@0.4.0,nf-tower@1.4.0
+juli-15 13:42:41.634 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+juli-15 13:42:41.667 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+juli-15 13:42:41.669 [main] INFO  org.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+juli-15 13:42:41.674 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+juli-15 13:42:41.686 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+juli-15 13:42:41.764 [main] DEBUG nextflow.Session - Session uuid: 3f0682fb-7a3b-4efb-919f-26ef914aa807
+juli-15 13:42:41.764 [main] DEBUG nextflow.Session - Run name: drunk_picasso
+juli-15 13:42:41.766 [main] DEBUG nextflow.Session - Executor pool size: 12
+juli-15 13:42:41.816 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 22.04.4 build 5706
+  Created: 19-06-2022 20:51 UTC (22:51 CEST)
+  System: Mac OS X 11.4
+  Runtime: Groovy 3.0.10 on OpenJDK 64-Bit Server VM 17.0.3+7
+  Encoding: UTF-8 (UTF-8)
+  Process: 6305@BMC-02XPE8DJG5J [130.238.180.148]
+  CPUs: 12 - Mem: 16 GB (162.1 MB) - Swap: 3 GB (743.5 MB)
+juli-15 13:42:41.871 [main] DEBUG nextflow.Session - Work-dir: /Users/nimra236/Dropbox/Doc/My_tools_in/My_Toolbox/Nextflow/work [Mac OS X]
+juli-15 13:42:41.909 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /Users/nimra236/Dropbox/Doc/My_tools_in/My_Toolbox/Nextflow/bin
+juli-15 13:42:41.923 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+juli-15 13:42:41.936 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+juli-15 13:42:41.994 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+juli-15 13:42:42.010 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 13; maxThreads: 1000
+juli-15 13:42:42.135 [main] DEBUG nextflow.Session - Session start invoked
+juli-15 13:42:42.907 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+juli-15 13:42:43.052 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+juli-15 13:42:43.067 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+juli-15 13:42:43.075 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+juli-15 13:42:43.083 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=12; memory=16 GB; capacity=12; pollInterval=100ms; dumpInterval=5m
+juli-15 13:42:43.188 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: test
+juli-15 13:42:43.189 [main] DEBUG nextflow.Session - Ignite dataflow network (2)
+juli-15 13:42:43.196 [PathVisitor-1] DEBUG nextflow.file.PathVisitor - files for syntax: glob; folder: /domus/h1/nimar/nextflow_tutorial/fastq/; pattern: *{1,2}.fq; options: [:]
+juli-15 13:42:43.196 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > test
+juli-15 13:42:43.197 [main] DEBUG nextflow.script.ScriptRunner - > Await termination 
+juli-15 13:42:43.197 [main] DEBUG nextflow.Session - Session await
+juli-15 13:42:43.201 [PathVisitor-1] DEBUG nextflow.file.PathVisitor - No such file: /domus/h1/nimar/nextflow_tutorial/fastq/ -- Skipping visit
+juli-15 13:42:43.348 [Task submitter] DEBUG nextflow.executor.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+juli-15 13:42:43.353 [Task submitter] INFO  nextflow.Session - [4a/0d86ca] Submitted process > test
+juli-15 13:42:43.461 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: test; status: COMPLETED; exit: 0; error: -; workDir: /Users/nimra236/Dropbox/Doc/My_tools_in/My_Toolbox/Nextflow/work/4a/0d86caf50b92cdf04ffe3945133184]
+juli-15 13:42:43.473 [main] DEBUG nextflow.Session - Session await > all process finished
+juli-15 13:42:43.559 [main] DEBUG nextflow.Session - Session await > all barriers passed
+juli-15 13:42:43.583 [main] DEBUG nextflow.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=1; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=52ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
+juli-15 13:42:43.661 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+juli-15 13:42:43.678 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

@@ -1,0 +1,177 @@
+---
+title: "Nextflow"
+author: "Nima Rafati"
+date: '2022-07-15'
+output: html_document
+---
+
+```{r, echo = F}
+library(knitr)
+library(kableExtra)
+
+```
+
+
+# DSL2  
+
+## Channel   
+### fromPath  
+Emitting file(s) from a path. 
+**NOTE: does not check whether the file exists.**  
+```{bash, eval = F}
+myFileChannel = Channel.fromPath( '/data/some/bigfile.txt' )
+pairFiles = Channel.fromPath( 'data/file_{1,2}.fq' )
+expl3 = Channel.fromPath( '/path/*', hidden: true ) # search for hidden files.   
+
+myFileChannel = Channel.fromPath( '/path/*b', type: 'dir' ) # Listing DIRECTORIES ending with b
+myFileChannel = Channel.fromPath( '/path/a*', type: 'any' ) # Listing files and directories starting with a  
+
+Channel.fromPath( ['/some/path/*.fq', '/other/path/*.fastq'] ) # You can pass multiple formats to channel  
+```
+
+\*\* checkes directories for given files too.   
+
+Parametrs:  
+**maxDepth:** Maximum number of directory levels to visit (default: no limit)  
+**followLinks:** When true it follows symbolic links during directories tree traversal, otherwise they are managed as files (default: true)  
+
+**relative:** When true returned paths are relative to the top-most common directory (default: false)  
+
+**checkIfExists:** When true throws an exception of the specified path do not exist in the file system (default: false)  
+
+### fromFilePairs  
+Emitting pair files (read1/read2).  
+```{bash, eval = F}
+Channel
+  .fromFilePairs('/domus/h1/nimar/nextflow_tutorial/fastq/*{1,2}.fq')
+  .view()
+# [HG00100, [/domus/h1/nimar/nextflow_tutorial/fastq/HG00100_1.fq, /domus/h1/nimar/nextflow_tutorial/fastq/HG00100_2.fq]]
+# [HG00097, [/domus/h1/nimar/nextflow_tutorial/fastq/HG00097_1.fq, /domus/h1/nimar/nextflow_tutorial/fastq/HG00097_2.fq]]
+# [HG00101, [/domus/h1/nimar/nextflow_tutorial/fastq/HG00101_1.fq, /domus/h1/nimar/nextflow_tutorial/fastq/HG00101_2.fq]]
+# 
+Channel
+  .fromFilePairs('/some/data/*', size: -1) { file -> file.extension }
+  .view { ext, files -> "Files with the extension $ext are $files" }
+# Files with the extension fq are [/domus/h1/nimar/nextflow_tutorial/fastq/HG00097_1.fq, /domus/h1/nimar/nextflow_tutorial/fastq/HG00097_2.fq, /domus/h1/nimar/nextflow_tutorial/fastq/HG00100_1.fq, /domus/h1/nimar/nextflow_tutorial/fastq/HG00100_2.fq, /domus/h1/nimar/nextflow_tutorial/fastq/HG00101_1.fq, /domus/h1/nimar/nextflow_tutorial/fastq/HG00101_2.fq]
+```
+ size `-1` means any file  
+
+### fromSRA  
+```{bash, eval = F}
+ids = ['ERR908507', 'ERR908506', 'ERR908505']
+Channel
+    .fromSRA(ids)
+    .view()
+# [SRR1448794, /vol1/fastq/SRR144/004/SRR1448794/SRR1448794.fastq.gz]
+# [SRR1448795, /vol1/fastq/SRR144/005/SRR1448795/SRR1448795.fastq.gz] 
+# ....
+```
+
+
+### watchPath  
+Check the presence of file with certain events which should be specified (`create`, `modify`, `delete`).  
+```{bash, eval = F}
+Channel
+   .watchPath( '/path/*.fa' )
+   .subscribe { println "Fasta file: $it" }
+```
+
+**The watchPath factory waits endlessly for files that match the specified pattern and event(s), which means that it will cause your pipeline to run forever. Consider using the until operator to close the channel when a certain condition is met (e.g. receiving a file named DONE).**  
+
+### empty  
+Creating an empty channel without emitting.  
+
+## Observing events  
+```{bash, eval = F}
+source = Channel.from ( 'alpha', 'beta', 'delta' )
+
+// subscribe a function to the channel printing the emitted values
+source.subscribe {  println "Got: $it"  }
+# Got: alpha
+# Got: beta
+# Got: delta
+```
+
+
+**NOTE:**  
+You defing a new variable in *groovy* by `String varliable -> println "${variable}; ${variable.size()}".  
+```{bash, eval = F}
+Channel
+    .from( 'alpha', 'beta', 'lambda' )
+    .subscribe { String str ->
+        println "Got: ${str}; len: ${str.size()}"
+    }
+```
+
+
+
+## SLURM  
+Adding project IDs and other options.  
+```{bash, eval = F}
+profiles {
+
+    uppmax {
+        executor {
+            name = 'slurm'
+        }
+        process {
+            scratch = '$SNIC_TMP'
+            clusterOptions = ' -A snic2022-22-606  --mail-type=all --mail-user=nimarafati@gmail.com '
+        }
+    }
+}
+```
+
+
+
+## Directives  
+### errorStrategy  
+Tracing and handling the error in the workflow  
+```{r, eval = T, echo = F}
+df <- data.frame(Name = c('terminate', 'finish', 'ignore', 'retry'), Executor = c('Terminates the execution as soon as an error condition is reported. Pending jobs are killed (default)',
+'Initiates an orderly pipeline shutdown when an error condition is raised, waiting the completion of any submitted job.',
+'Ignores processes execution errors.',
+'Re-submit for execution a process returning an error condition.'))
+kable(df, longtable = F, booktabs = T)  %>% kable_styling()
+```
+
+```{bash, eval = T}
+process ignoreAnyError {
+  errorStrategy 'ignore'
+
+  script:
+  <your command string here>
+}
+```
+
+You can use `maxErrors 5`, `maxRetries = 3`  together with `retry`.  
+## maxForks  
+Define how many process instances to perform in parallel.  
+```{bash, eval = F}
+process doNotParallelizeIt {
+  maxForks 1
+
+  '''
+  <your script here>
+  '''
+}
+```
+
+## memory  
+To specify maximum memory for a process.  
+## module  
+To load local modules on server.  
+```{bash, eval = F}
+process example {
+  module 'BioPerl'
+}
+```
+
+## publishDir  
+
+
+
+
+
+
+

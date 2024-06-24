@@ -1,0 +1,264 @@
+---
+title: 'DNA Methylation: Bisulfite Sequencing Workflow'
+author: "Nima Rafati"
+date: "2023-09-15"
+output: html_document
+---
+It is based on workshop-Epigenomics given by NBIS and the materials are prepared by VIncent Van Hoef. 
+
+# Preparation. 
+```{r, echo = T, eval = F}
+# Set the correct library path.
+# Do NOT do this if setting up the environment with option B, only option A
+# If you accidently do run the following line with option B, you can do *Session -> Restart R*
+# and run again without this line.
+.libPaths("/sw/apps/R_packages/4.0.0/rackham")
+# Main analysis package
+library("methylKit")
+# Annotation package
+library("genomation")
+library("GenomicRanges")
+
+```
+
+
+
+# Loading the data 
+```{r, echo = T, eval = F}
+file.list <- list(
+  "/sw/courses/epigenomics/DNAmethylation/biseq_data/P6_1.bismark.cov.gz",
+  "/sw/courses/epigenomics/DNAmethylation/biseq_data/P6_4.bismark.cov.gz",
+  "/sw/courses/epigenomics/DNAmethylation/biseq_data/P8_3.bismark.cov.gz",
+  "/sw/courses/epigenomics/DNAmethylation/biseq_data/P8_6.bismark.cov.gz")
+
+# read the listed files into a methylRawList object making sure the other
+# parameters are filled in correctly.
+myobj <- methRead(file.list,
+                  sample.id=list("Luminal_1","Luminal_2","Basal_1","Basal_2"),
+                  pipeline = "bismarkCoverage",
+                  assembly="mm10",
+                  treatment=c(1,1,0,0),
+                  mincov = 10
+)
+
+# check number of samples
+myobj
+
+# What type of data is stored here?
+names(myobj[[2]])
+myobj
+```
+
+# Descriptive 
+```{r, echo = T, eval = F}
+# Get a histogram of the methylation percentage per sample
+# Here for sample 1
+getMethylationStats(myobj[[1]], plot=TRUE, both.strands=FALSE)
+
+
+# Get a histogram of the read coverage per sample
+getCoverageStats(myobj[[1]], plot=TRUE, both.strands=FALSE)
+# Get percentile data by setting plot=FALSE
+getCoverageStats(myobj[[3]], plot=FALSE, both.strands=FALSE)
+
+```
+
+
+# Filtering 
+```{r, echo = T, eval = F}
+myobj.filt <- filterByCoverage(myobj,
+                               lo.count=10,
+                               lo.perc=NULL,
+                               hi.count=NULL,
+                               hi.perc=99.9)
+
+```
+
+# Normalization
+```{r, echo = T, eval = F}
+myobj.filt.norm <- normalizeCoverage(myobj.filt, method = "median")
+
+# Merge data
+meth <- unite(myobj.filt.norm, destrand=FALSE)
+meth
+
+
+```
+
+# Removing non-variable sites
+
+```{r, echo = T, eval = F}
+
+# get percent methylation matrix
+pm=percMethylation(meth)
+
+# calculate standard deviation of CpGs
+sds=matrixStats::rowSds(pm)
+
+# Visualize the distribution of the per-CpG standard deviation
+# to determine a suitable cutoff
+hist(sds, breaks = 100)
+
+# keep only CpG with standard deviations larger than 2%
+meth <- meth[sds > 2]
+
+# This leaves us with this number of CpG sites
+nrow(meth)
+
+```
+
+
+REmoving C => T mutations 
+```{r, echo = T, eval = F}
+# give the locations of 2 example SNPs
+mut <- GRanges(seqnames=c("chr1","chr18"),
+               ranges=IRanges(start=c(3020690, 9853326),
+                              end=c(3020690,9853326)))
+
+# select CpGs that do not overlap with mutations
+meth <- meth[!as(meth,"GRanges") %over% mut, ]
+
+
+```
+
+
+
+# Outlier detection 
+```{r, echo = T, eval = F}
+getCorrelation(meth,plot=TRUE)
+clusterSamples(meth, dist="correlation", method="ward", plot=TRUE)
+PCASamples(meth)
+
+```
+
+# Differential methylation 
+```{r, echo = T, eval = F}
+# Test for differential methylation... This might take a few minutes.
+myDiff <- calculateDiffMeth(meth,
+                            overdispersion = "MN",
+                            adjust="BH")
+myDiff
+
+
+# Simple volcano plot to get an overview of differential methylation
+plot(myDiff$meth.diff, -log10(myDiff$qvalue))
+abline(v=0)
+
+# Overview of percentage hyper and hypo CpGs per chromosome.
+diffMethPerChr(myDiff)
+
+
+# # get hyper methylated bases and order by qvalue
+myDiff25p.hyper <- getMethylDiff(myDiff,
+                                 difference=25,
+                                 qvalue=0.01,
+                                 type="hyper")
+myDiff25p.hyper <- myDiff25p.hyper[order(myDiff25p.hyper$qvalue),]
+
+# get hypo methylated bases and order by qvalue
+myDiff25p.hypo <- getMethylDiff(myDiff,
+                                difference=25,
+                                qvalue=0.01,
+                                type="hypo")
+myDiff25p.hypo <- myDiff25p.hypo[order(myDiff25p.hypo$qvalue),]
+
+# get all differentially methylated bases and order by qvalue
+myDiff25p <- getMethylDiff(myDiff,
+                           difference=25,
+                           qvalue=0.01)
+myDiff25p <- myDiff25p[order(myDiff25p$qvalue),]
+
+```
+
+
+# CpG annotation. 
+```{r, echo = T, eval = F}
+# First load the annotation data; i.e the coordinates of promoters, TSS, intron and exons
+refseq_anot <- readTranscriptFeatures("/sw/courses/epigenomics/DNAmethylation/biseq_data//mm10.refseq.genes.bed")
+
+# Annotate hypermethylated CpGs ("target") with promoter/exon/intron
+# information ("feature"). This function operates on GRanges objects, so we # first coerce the methylKit object to GRanges.
+myDiff25p.hyper.anot <- annotateWithGeneParts(target = as(myDiff25p.hyper,"GRanges"),
+                                              feature = refseq_anot)
+
+# Summary of target set annotation
+myDiff25p.hyper.anot
+
+
+# View the distance to the nearest Transcription Start Site; the target.row column in the output indicates the row number in the initial target set
+dist_tss <- getAssociationWithTSS(myDiff25p.hyper.anot)
+head(dist_tss)
+
+# See whether the differentially methylated CpGs are within promoters,introns or exons; the order is the same as the target set
+getMembers(myDiff25p.hyper.anot)
+
+# This can also be summarized for all differentially methylated CpGs
+plotTargetAnnotation(myDiff25p.hyper.anot, main = "Differential Methylation Annotation")
+
+
+
+
+# Load the CpG info
+cpg_anot <- readFeatureFlank("/sw/courses/epigenomics/DNAmethylation/biseq_data/mm10.cpg.bed", feature.flank.name = c("CpGi", "shores"), flank=2000)
+diffCpGann <- annotateWithFeatureFlank(as(myDiff25p,"GRanges"), feature = cpg_anot$CpGi, flank = cpg_anot$shores, feature.name = "CpGi", flank.name = "shores")
+
+# See whether the CpG in myDiff25p belong to a CpG Island or Shore
+head(getMembers(diffCpGann))
+
+# This can also be summarized for all differentially methylated CpGs
+plotTargetAnnotation(diffCpGann, main = "Differential Methylation Annotation")
+
+
+
+
+```
+
+# Differnetially methylated regions 
+```{r, echo = T, eval = F}
+# Summarize the original object counts over a certain region, here the CpG Islands
+# You can ignore the warnings here...
+myobj_islands <- regionCounts(myobj, cpg_anot$CpGi)
+# Filter the summarized counts by coverage
+myobj_islands_filt <- filterByCoverage(myobj_islands,
+                                       lo.count=10,
+                                       lo.perc=NULL,
+                                       hi.count=NULL,
+                                       hi.perc=99.9)
+# Perform simple normalization
+myobj_islands_filt_norm <- normalizeCoverage(myobj_islands_filt, method = "median")
+# Merge the samples again
+meth_islands <- unite(myobj_islands_filt_norm, destrand=FALSE)
+
+
+# Test for differential methylation... This might take a few minutes.
+myDiff_islands <- calculateDiffMeth(meth_islands)
+# Rank by significance
+myDiff_islands <- myDiff_islands[order(myDiff_islands$qvalue),]
+# get all differentially methylated CpG Islands
+myDiff_islands_25p <- getMethylDiff(myDiff_islands,difference=25,qvalue=0.01)
+
+myDiff_islands_25p_ann <- annotateWithGeneParts(as((myDiff_islands_25p), "GRanges"), refseq_anot)
+# View the distance to the nearest Transcription Start Site; the target.row column indicates the row number in myDiff_islands_25p
+head(getAssociationWithTSS(myDiff_islands_25p_ann))
+
+# Reconstruct original object, keeping a lower coverage this time
+myobj_lowCov <- methRead(file.list,
+                         sample.id=list("Luminal_1","Luminal_2","Basal_1","Basal_2"),
+                         pipeline = "bismarkCoverage",
+                         assembly="mm10",
+                         treatment=c(1,1,0,0),
+                         mincov = 3
+)
+
+# Group the counts
+tiles <- tileMethylCounts(myobj_lowCov,win.size=1000,step.size=1000,cov.bases = 10)
+
+# Inspect data
+head(tiles[[1]])
+```
+
+# Visualisation. 
+```{r, echo = T, eval = F}
+bedgraph(myDiff25p, col.name = "meth.diff", file.name = "diff_cpg_25p.bed")
+```
+

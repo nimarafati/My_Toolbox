@@ -1,0 +1,286 @@
+---
+title: "Clustering"
+author: "Nima Rafati"
+format: 
+  revealjs:
+    height : 900
+    width : 1600
+    slide-number: true
+editor: visual
+editor_options: 
+  chunk_output_type: console
+logo: https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-Flat.png
+---
+
+# Clusteirng
+
+-   What is clustering?
+
+    -    Clustering is an approach to classify/group data points
+
+-   Why do we use clustering?
+
+    -   For exploring the data
+
+    -   To discover patterns in our data set
+
+    -   Identify outliers
+
+# Clustering Methods
+
+-   Centroid-based
+
+-   Density-based
+
+-   Distribution-based
+
+-   Hierarchical-based
+
+# Steps:
+
+In short all clustering approach follows these steps:
+
+-   Calculate distance between data points
+
+-   Group \| cluster the data based on similarities
+
+# Distance can be measured in:
+
+-   In multidimensional space (raw data)
+
+-   in reduced space (i.e. top PCs)
+
+## Distance metrics
+
+-   Euclidean distance is a straight line between two points
+
+    $$
+    c^2 = a^2 + b^2
+    $$
+
+    ```{r euclidean-distance, fig.align='center'}
+    #| output-location: fragment
+    set.seed(123)
+    x <- c(19,8,3,4,17,12,6,1,10,11,16,9,7,14,5,19,2,18,13,15)
+    y <- c(6,8,12,4,13,16,14,5,7,1,19,10,2,11,9,15,18,17,3,20)
+      
+    plot(x,y)
+    arrows(x0=19,y0=13,
+            x1=x[1],y1=y[1], col = 'red', angle = 20, length = 0.1)
+    text(c((x[1] + 19)/2),
+           c((y[1] + 13)/2), labels = 'a', pos = 4, col = 'red')
+    arrows(x0=19,y0=13,
+            x1=x[5],y1=y[5], col = 'red', angle = 20, length = 0.1)
+    text(c((x[5] + 19)/2)-0.5,
+         c((y[5] + 13)/2)+0.5, labels = 'b', pos = 4, col = 'red')
+    arrows(x0=x[5],y0=y[5],
+            x1=x[1],y1=y[1], col = 'red', angle = 20, length = 0.1)
+    text(c((x[1] + x[5])/2)-1,
+         c((y[1] + y[5])/2), labels = 'c', pos = 4, col = 'red')
+    ```
+
+## Distance metrics
+
+-   Manhattan distance
+
+    $$
+    a + b
+    $$
+
+```{r manhattan-distance}
+set.seed(123)
+x <- c(19,8,3,4,17,12,6,1,10,11,16,9,7,14,5,19,2,18,13,15)
+y <- c(6,8,12,4,13,16,14,5,7,1,19,10,2,11,9,15,18,17,3,20)
+  
+plot(x,y)
+arrows(x0=19,y0=13,
+        x1=x[1],y1=y[1], col = 'red', angle = 20, length = 0.1)
+text(c((x[1] + 19)/2),
+       c((y[1] + 13)/2), labels = 'a', pos = 4, col = 'red')
+arrows(x0=19,y0=13,
+        x1=x[5],y1=y[5], col = 'red', angle = 20, length = 0.1)
+text(c((x[5] + 19)/2)-0.5,
+     c((y[5] + 13)/2)+0.5, labels = 'b', pos = 4, col = 'red')
+```
+
+## Distance metrics
+
+-   Inverted pairwise correlations
+
+    $$
+    dist = -(cor -1) / 2
+    $$
+
+```{r inverted-pairwise-correlation}
+plot(c(0.5,4.5), c(-2,2), bty = 'n', type = 'n', xaxt = 'n', xlab = ' ', ylab = '', yaxt = 'n')
+axis(2,
+     at = -1:1,
+     labels = c(-1,0,1))
+abline(h = c(-1,1), lty = 2)
+abline(h=0,lwd=3)
+arrows(x0 = 1, y0 = 0,
+       x1 = 1, y1 = 1, col = 'red', length = 0.1, lwd = 5)
+arrows(x0 = 1, y0 = 0,
+       x1 = 1, y1 = -1, col = 'blue', length = 0.1, lwd = 5)
+text(x = 1, y = 1, labels = 'cor', pos = 3)
+arrows(x0 = 2, y0 = -1,
+       x1 = 2, y1 = 0, col = 'red', length = 0.1, lwd = 5)
+arrows(x0 = 2, y0 = -1,
+       x1 = 2, y1 = -2, col = 'blue', length = 0.1, lwd = 5)
+text(x = 2, y = 1, labels = 'cor-1', pos = 3)
+arrows(x0 = 3, y0 = 1,
+       x1 = 3, y1 = 2, col = 'blue', length = 0.1, lwd = 5)
+arrows(x0 = 3, y0 = 1,
+       x1 = 3, y1 = 0, col = 'red', length = 0.1, lwd = 5)
+text(x = 3, y = -0.5, labels = '-(cor-1)', pos = 3)
+arrows(x0 = 4, y0 = 0.5,
+       x1 = 4, y1 = 1, col = 'blue', length = 0.1, lwd = 5)
+arrows(x0 = 4, y0 = 0.5,
+       x1 = 4, y1 = 0, col = 'red', length = 0.1, lwd = 5)
+text(x = 4, y = 1, labels = '-(cor-1)/2', pos = 3)
+
+```
+
+## Mahalanobis Distance
+
+-   Despite of previous approach which was based on distance between data points, this method measures the distance between a data point and a distribution.
+
+```{r}
+# Load necessary libraries
+library(MASS) # For mvrnorm to generate multivariate normal samples
+library(ggplot2)
+
+# Generate a dataset of 2 variables
+set.seed(42)
+data <- mvrnorm(n = 300, mu = c(0, 0), Sigma = matrix(c(1, 0.9, 0.9, 1), ncol = 2))
+colnames(data) <- c("X1", "X2")
+
+# Define a point
+point <- c(2, 2)
+
+# Calculate Euclidean distance from the center (0,0)
+euclidean_distance <- sqrt(sum((point - colMeans(data))^2))
+
+# Correct calculation of Mahalanobis distance
+mahalanobis_distance <- sqrt(t(matrix(point - colMeans(data))) %*% solve(var(data)) %*% matrix(point - colMeans(data)))
+
+# Print the distances
+# print(paste("Euclidean Distance:", round(euclidean_distance, 2)))
+# print(paste("Mahalanobis Distance:", round(mahalanobis_distance, 2)))
+
+
+# Create a base plot
+plot <- ggplot(data.frame(data), aes(x = X1, y = X2)) + 
+  geom_point(color = "lightblue") + 
+  geom_point(aes(x = 0, y = 0), color = "red", size = 3) + 
+  geom_point(aes(x = point[1], y = point[2]), color = "green", size = 3) +
+  geom_segment(aes(x = 0, y = 0, xend = point[1], yend = point[2]), 
+               linetype = "dashed", color = "green") +
+  ggtitle("Mahalanobis Distance") +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
+
+# Display the plot
+print(plot)
+
+# Annotate distances
+# plot + annotate("text", x = 1, y = 2, label = paste("Euclidean:", round(euclidean_distance, 2)), color = "green") +
+#       annotate("text", x = 1, y = 1.8, label = paste("Mahalanobis:", round(mahalanobis_distance, 2)), color = "green")
+
+```
+
+## Centroid-based
+
+-   One of the most commonly used clustering methods
+
+-   In this method the distance between data points and centroids is calculated
+
+-   Each data point is assigned to a cluster based on its squared distance from centroid.
+
+-   Square distance
+
+```{r data-generation}
+# install.packages(c("dbscan", "mclust", "factoextra"))
+set.seed(123) # For reproducibility
+# Creating synthetic data
+gene_expression <- rbind(
+  matrix(rnorm(90, mean=0), ncol=3),
+  matrix(rnorm(90, mean=5), ncol=3),
+  matrix(rnorm(90, mean=10), ncol=3)
+)
+groups <- rep(c('Group1', 'Group2', 'Group3'), each=3)
+```
+
+```{r kmeans}
+library(ggplot2)
+
+
+# Perform K-means clustering
+set.seed(123)
+kmeans_result <- kmeans(gene_expression, centers=3)
+
+# Visualization
+df_kmeans <- data.frame(PC1 = gene_expression[,1], PC2 = gene_expression[,2], Cluster = as.factor(kmeans_result$cluster))
+ggplot(df_kmeans, aes(x = PC1, y = PC2, color = Cluster)) + geom_point() + ggtitle("K-means Clustering")
+
+
+```
+
+## Density-based clustering: DBSCAN
+
+-   This method identifies regions within your data distribution that exhibits high density of data points.
+
+```{r dbdscan}
+library(dbscan)
+
+# Perform DBSCAN clustering
+dbscan_result <- dbscan(gene_expression, eps = 2, minPts = 2)
+
+# Visualization
+df_dbscan <- data.frame(PC1 = gene_expression[,1], PC2 = gene_expression[,2], Cluster = as.factor(dbscan_result$cluster))
+ggplot(df_dbscan, aes(x = PC1, y = PC2, color = Cluster)) + geom_point() + ggtitle("DBSCAN Clustering")
+
+```
+
+## Distribution-based clustering: Guassian Mixture Model (GMM)
+
+-   It involves modeling the data points with probability distribution.
+
+-   In this method prior knowledge on distribution of your data is required. If you do not know the distribution of your data try another approach.
+
+-   You need to specify number of clusters.
+
+::: {.notes}
+Distribution-based clustering involves modeling the data points using probability distributions, with the Gaussian Mixture Model (GMM) being one of the most commonly used methods in this category. In a GMM, each cluster is modeled as a Gaussian distribution, and the algorithm iteratively updates the parameters of these distributions (mean, covariance) and the probability of each point belonging to each cluster.
+:::
+
+```{r gmm}
+library(mclust)
+
+# Perform GMM clustering
+gmm_result <- Mclust(gene_expression)
+
+# Visualization
+df_gmm <- data.frame(PC1 = gene_expression[,1], PC2 = gene_expression[,2], Cluster = as.factor(gmm_result$classification))
+ggplot(df_gmm, aes(x = PC1, y = PC2, color = Cluster)) + geom_point() + ggtitle("Gaussian Mixture Model Clustering") + xlab('Dim1') + ylab('Dim2')
+
+
+```
+
+## Hierarchical-based clustering
+
+-   This approach creates a tree of clusters
+
+-   Well suited for hierarchical data (e.g. taxonomies)
+
+```{r hc}
+# Perform hierarchical clustering
+hc_result <- hclust(dist(gene_expression), method = "ward.D2")
+
+# Cut tree into 3 clusters
+cutree_result <- cutree(hc_result, k=3)
+
+# Visualization
+library(factoextra)
+fviz_cluster(list(data = gene_expression, cluster = cutree_result)) + ggtitle("Hierarchical Clustering")
+
+```

@@ -1,0 +1,286 @@
+---
+title: "AWK"
+author: "Nima Rafati"
+date: "1/17/2022"
+output: rmarkdown::github_document
+---
+
+# Introduction
+Before using **awk** try to solve it by **sed** or **grep**; If it was not possible then it's time to use **awk**.  
+But what is **awk**?  
+
+*The AWK language is a data-driven scripting language consisting of a set of actions to be taken against streams of textual data - either run directly on files or used as part of a pipeline - for purposes of extracting or transforming text, such as producing formatted reports. The language extensively uses the string datatype, associative arrays (that is, arrays indexed by key strings), and regular expressions.*  (wikipedia.org)  
+
+# General notes about awk  
+- You should always use single quote **'** not double quote **"**.  
+- awk command syntax:  
+
+```{bash, eval = F}
+awk '/pattern/' {commands} fileA fileB ... fileZ  
+```
+
+# Simple example  
+```{bash}
+echo "gold     1    1986  USA                 American Eagle
+gold     1    1908  Austria-Hungary     Franz Josef 100 Korona
+silver  10    1981  USA                 ingot
+gold     1    1984  Switzerland         ingot
+gold     1    1979  RSA                 Krugerrand
+gold     0.5  1981  RSA                 Krugerrand
+gold     0.1  1986  PRC                 Panda - silver lined
+silver   1    1986  USA                 Liberty dollar
+gold     0.25 1986  USA                 Liberty 5-dollar piece
+silver   0.5  1986  USA                 Liberty 50-cent piece
+silver   1    1987  USA                 Constitution dollar
+gold     0.25 1987  USA                 Constitution 5-dollar piece
+gold     1    1988  Canada              Maple Leaf
+" > coins.txt
+```
+
+Q: How many "gold" you can find in the file?  
+```{bash}
+awk '/gold/' coins.txt  
+```
+
+Q: Extract coins before 1910.  
+```{bash}
+awk '$3 < 1910' coins.txt
+```
+
+# Math  
+Save the following information into a file  
+```{bash}
+echo "10 20 30 
+40 50 60 My_Toolbox" > data
+```
+
+Q: Print each line and this operation (column1 + coulm2 * column3):  
+```{bash}
+awk '{print $0, ":", $1 + $2 * $3}' data
+```
+
+Q: What happens if you sum column4 where you have text (My_Toolbox)?  
+```{bash}
+awk '{print $0, ":", $1 + $2 * $3 + $4}' data
+```
+Awk does not complain about the txt and just return the math without column 4 which is only present in second line?  
+Q: What happens if you multiply column4 by **one** where you have text (My_Toolbox)?  
+```{bash}
+awk '{print $0, ":", $4 * 1}' data
+```
+awk returns zero! Imagin you have scientific numbers (10e6) it returns 10!  So be aware of behaviour of awk with text in math commands.  
+
+Q: How many coulmns we have in **data** file?  
+```{bash}
+awk '{print NF}' data
+```
+**NF: number of fields**  
+Q: You have different number of columns; how can you print the last column?  
+```{bash}
+awk '{print $NF}' data 
+```
+by **$NF** you print last column of each line regardless differences in number of fields (columns).  
+
+Q: Print third to the last field.  
+```{bash}
+awk '{print $(NF-2)}' data
+```
+
+Q: Print number of rows
+```{bash}
+awk '{print "row number"NR,":", $0}' data
+```
+**NR: number of rows**  
+# Formating the content of the file
+You can do that by `printf()`  
+```{bash}
+awk '{printf("%10s\n",$1)}' coins.txt
+```
+You aligned column1 by 10 spaces.  
+**%**  is a format specifier for `printf()`.  
+**s**  space.  
+**\n** newline.  
+Now left alignment   
+```{bash}
+awk '{printf("%-10s|\n",$1)}' coins.txt
+```
+
+You can read more about formatting [here](https://www.gnu.org/software/gawk/manual/html_node/Index.html)
+
+# Create tables  
+You can create frequency table by awk.  Let's count number of countries in coins file.  
+```{bash}
+awk '{country[$4]++} END {for (i in country) print "Country: " i," count: ", country[i]}' coins.txt
+```
+We save countries name in an array called **country** and the iterate through the array and print the counts.  
+**++** means to add the previous value every time you see country[$4].  
+You can also save the command in a bash file.  
+```{bash, eval = F}
+#!/usr/bin/awk -f
+{ country[$4]++ }
+
+END {
+  for (i in country) print "Country: " i," count: ", country[i]
+} 
+```
+
+You can force awk to do perform some commands in the beginning and ending reading the file:  
+- **BEGIN**: you can for example define variable(s).  
+- **END**: perform some calculation or print the variable(s).  
+
+Converting the chopped **Distance** matrix in **gaussian.out** file.  
+```{bash, eval = F}
+#!/usr/bin/awk -f
+{ country[$4]++ }
+
+END {
+  country['USA']='TEST'
+  for (i in country) print "Country: " i," count: ", country[i]
+}
+```
+
+
+# Multidimonsional arrays in awk  
+
+
+# Multiline file to single line (e.g. fasta)
+```{bash}
+echo ">1
+ACGT
+SVGT
+SVHT
+>2
+TCGAAAA
+TCGAAAA
+TCGAAAA" >fasta.fasta
+```
+
+Step1- Fetch the header line  
+```{bash}
+awk '/^>/{printf("\n%s\n", $0)}' fasta.fasta
+```
+
+Step2- glue together next lines (which do not start with **>**)  
+```{bash}
+awk '/^>/{printf("\n%s\n", $0)} !/^>/{printf("%s",$0)}' fasta.fasta
+```
+Step3- print newline at the end   
+```{bash}
+awk '/^>/{printf("\n%s\n", $0)} !/^>/{printf("%s",$0)} END{printf("\n",$0)}' fasta.fasta
+```
+
+
+# Split a file into multiple file by content of given values in selected columns  
+```{bash}
+awk '{print $0 > $4"."$3".txt"}' conis.txt
+```
+
+
+# Arithmetic
+## Row Sum
+```{bash}
+echo "0	4	1
+4	2	8
+4	4	8
+4	2	2
+8	1	9
+8	8	0
+8	8	6
+6	7	1
+0	8	4
+9	0	2" >numbers.txt
+```
+Summing the rows  
+```{bash}
+awk '{for(i = 1; i <= NF; i++)sum=sum+$i;print $0,sum;sum=0}'  numbers.txt  
+```
+## Folder size  
+First list the files  by `ls -l` 
+```{bash}
+ls -l | awk '{sum = sum+$5}END{print sum}'
+```
+ 
+## Find largest values  
+```{bash}
+awk '{max=0; for(i=1; i <=NF ; i++){if ($i > max){max=$i;OFS="\t";print "max="$i,$0}}}' numbers.txt 
+```
+## Filter zero values with "NA"  
+```{bash}
+awk '{max=0; for(i=1; i <=NF ; i++){if ($i == max){$i="NA";OFS="\t";print $0}}}' numbers.txt    
+```
+
+## Reorganize the data in a file  
+THe following file has uneven number of columns and we sould like to create a matrix to feed into R/Python/Perl,... for downstream analysis.  
+```{bash, eval = F}
+Population: A
+Fst 0.05  0.1
+Pi  0.001 0.002
+Population: B
+Fst 0.15  0.2
+Pi  0.0001 0.0002
+```
+No we want to print the **Population** as column followed by only **Fst** values.    
+```{bash, eval = F}
+A   0.05  0.1
+B   0.15  0.2
+```
+
+```{bash}
+awk '/^Population/ {pop = $2}/^Fst/{print pop,$2,$3}' Pop_stats.txt
+```
+
+Now tabularize the whole files  
+```{bash}
+awk '/^Population/ {pop = $2; getline; Fst1=$2; Fst2=$3; getline; Pi1=$2; Pi2=$3; print pop, Fst1, Fst2, Pi1, Pi2}' Pop_stats.txt  
+```
+
+# Advanced example  
+## Extracting data from GTF file  
+First download the data  
+```{bash}
+wget https://raw.github.com/nachocab/nachocab.github.io/master/assets/transcriptome.gtf
+```
+
+### Find lines that have gene coordinates  
+```{bash}
+awk '$3 == "gene"' transcriptome.gtf | head | less -S 
+```
+### Extract genes information (gene name, gene_type,...)
+```{bash}
+awk '$9 == "gene"' transcriptome.gtf | head | less -S 
+```
+### Extract transcript_id  
+```{bash}
+awk -F "\t" '$3 == "gene" { print $9 }' transcriptome.gtf | awk -F "; " '{ print $2 }' | head
+```
+### count gene_type features 
+```{bash}
+cut -f9  transcriptome.gtf | grep -v "#"  | awk -v FS="; *" '{for(i=1;i<=NF;i++){print $i}}' | awk '/^gene_type/{ OFS="\t"; features[$2]++} END {for (i in features) print i": "features[i]}'
+```
+
+## Extracting data from VCF file
+### Split SNP and INDEL
+```{bash}
+grep -v "#" dgrp2.vcf | awk '($1 == 4 && length($4) == 1 && length($5) == 1){print $0 > "dgrp2_SNP.vcf"}($1 == 4 && length($4)>1 || length($5) >1){print $0 >"dgrp2_INDEL.vcf"}' 
+```
+### Count converstions  
+```{bash}
+awk '/SNP/' dgrp2_SNP.vcf | awk '{print $4"->"$5}' | sort | uniq -c | sort -nr
+```
+### Intersect two files with coordinates (VCF & GTF)  
+```{bash}
+awk 'FNR==NR{a[$1,$2]="T"; next}{ hits=0; for(N=$4; N<=$5; N++) { if (a[$1,N] == "T") {hits+=1}} if (hits>0) {print hits "\t" $0 > "haveSNPINDEL_Drosophila_chr4.gff"} else {print $0 > "noSNPINDEL_Drosophila_chr4.gff"}}' dgrp2_INDEL.vcf transcriptome.gff3
+awk 'FNR==NR{a[$1,$2,$3]=$3; next}{ hits=0; for(N=$4; N<=$5; N++) { if (a[$1,N] == $3) {hits+=1}} if (hits>0) {print hits "\t" $0 > "haveSNPINDEL_Drosophila_chr4.gff"} else {print $0 > "noSNPINDEL_Drosophila_chr4.gff"}}' indels_Drosophila_chr4 Drosophila_melanogaster.chr4.gff3
+```
+if FNR == NR it means we are in the same file. While going to second file FNR becomes == 1.  
+**a[$1,$2]** associated array saving first two columns as identifier and assign "T". 
+
+# Summary of arguments used in awk
+**NR**  number of rows  
+**NF**  number of fields
+**FILENAME**  file name  to pass to awk  
+**FS**  field separator  
+**OFS**  output field separator (default = space; you can for example set to tab "\t")  
+**system** calling unix command (e.g. system("date"))
+**next** You can skip a line   
+**exit** You can exit the loop or command   
