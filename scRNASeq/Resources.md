@@ -3,7 +3,8 @@
 - [ ] [Computational principles and challenges in single-cell data integration](https://www.nature.com/articles/s41587-021-00895-7)
 - [ ] [A benchmark of batch-effect correction methods for single-cell RNA sequencing data
 ](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1850-9)
-- [ ] [Benchmarking atlas-level data integration in single-cell genomics](https://www.nature.com/articles/s41592-021-01336-8)  
+- [ ] [Benchmarking atlas-level data integration in single-cell genomics](https://www.nature.com/articles/s41592-021-01336-8)
+- [ ] [SkewC: Identifying cells with skewed gene body coverage in single-cell RNA sequencing data](https://www.sciencedirect.com/science/article/pii/S2589004222000475)
 
 # Spatial/scRNASeq
 - [ ] [Reconstruction of the cell pseudo-space from single-cell RNA sequencing data with scSpace](https://www.nature.com/articles/s41467-023-38121-4)
