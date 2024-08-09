@@ -5,6 +5,7 @@
 ](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1850-9)
 - [ ] [Benchmarking atlas-level data integration in single-cell genomics](https://www.nature.com/articles/s41592-021-01336-8)
 - [ ] [SkewC: Identifying cells with skewed gene body coverage in single-cell RNA sequencing data](https://www.sciencedirect.com/science/article/pii/S2589004222000475)
+- [ ] [Cross-species cell-type assignment from single-cell RNA-seq data by a heterogeneous graph neural network](https://github.com/zhanglabtools/CAME)
 
 # Spatial/scRNASeq
 - [ ] [Reconstruction of the cell pseudo-space from single-cell RNA sequencing data with scSpace](https://www.nature.com/articles/s41467-023-38121-4)
