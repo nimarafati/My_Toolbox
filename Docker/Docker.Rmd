@@ -3,6 +3,7 @@ title: "Packaging and sharing data science applications as Docker container imag
 subtitle: 'Swedish Bioinformatics Workshop 2024' 
 author: "Nima Rafati"
 date: "2024-11-05"
+output: md_document
 format: 
   html:
     toc: true
