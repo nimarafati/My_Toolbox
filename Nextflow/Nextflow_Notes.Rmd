@@ -2,7 +2,12 @@
 title: "Nextflow"
 author: "Nima Rafati"
 date: '2022-07-15'
-output: html_document
+#output: md_document
+format: 
+  html:
+    toc: true
+    toc-location: left
+    code-fold: true
 ---
 
 ```{r, echo = F}
@@ -16,13 +21,13 @@ library(kableExtra)
 ## Process  
 ### input
 Inputs are `qualifier`  and `name`.
-`qualifier` can be treated as variable type.
-- val: Access the input value by name in the process script.
-- path: Handle the input value as a path, staging the file properly in the execution context.
-- env: Use the input value to set an environment variable in the process script.
-- stdin: Forward the input value to the process stdin special file.
-- tuple: Handle a group of input values having any of the above qualifiers.
-- each: Execute the process for each element in the input collection.
+`qualifier` can be treated as variable type.  
+- val: Access the input value by name in the process script.  
+- path: Handle the input value as a path, staging the file properly in the execution context.  
+- env: Use the input value to set an environment variable in the process script.  
+- stdin: Forward the input value to the process stdin special file.  
+- tuple: Handle a group of input values having any of the above qualifiers.  
+- each: Execute the process for each element in the input collection.  
 
 #### `val`
 ```{bash, eval = F}
@@ -460,7 +465,9 @@ process myProcess {
 
 ### Directives
 Optional settings for a process.  
-#### `accelerator`
+
+#### `accelerator`  
+
 To specify a hardware.  
 ```{bash, eval = F}
 process myProcess {
