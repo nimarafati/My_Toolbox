@@ -3,7 +3,7 @@ title: "Packaging and sharing data science applications as Docker container imag
 subtitle: 'Swedish Bioinformatics Workshop 2024' 
 author: "Nima Rafati"
 date: "2024-11-05"
-output: md_document
+#output: md_document
 format: 
   html:
     toc: true
@@ -11,12 +11,14 @@ format:
     code-fold: true
 ---
 # Introduction 
+This workshop was held at Swedish Bioinformatics Workshop 2024, SLU, presented by Scilife Lab Data Center and the teachers were Hamza Imran and Johan Alfredéen.  
+
 - Container is a standard unit of software package.   
 - To overcome issues related to installation of software on local machines and poetntial incompatibility with different OS.  
 - Containers solve:
   - Application are packaged in an isolated environment
   - All dependencies and configs are delivered together
-  - Same. command on all OS
+  - Same command on all OS
   - Standardized process
   
 # Docker     
