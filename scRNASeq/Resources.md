@@ -25,3 +25,4 @@
 - [ ] [scNMT-seq enables joint profiling of chromatin accessibility DNA methylation and transcription in single cells](https://www.nature.com/articles/s41467-018-03149-4)
 - [ ] [Identifying temporal and spatial patterns of variation from multimodal data using MEFISTO](https://www.nature.com/articles/s41592-021-01343-9)
 - [ ] [Spatial multimodal analysis of transcriptomes and metabolomes in tissues](https://www.nature.com/articles/s41587-023-01937-y)
+- [ ] [Single-Cell DNA Methylation Profiling: Technologies and Biological Applications](https://www.sciencedirect.com/science/article/abs/pii/S016777991830115X)
