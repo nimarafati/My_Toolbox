@@ -26,3 +26,4 @@
 - [ ] [Identifying temporal and spatial patterns of variation from multimodal data using MEFISTO](https://www.nature.com/articles/s41592-021-01343-9)
 - [ ] [Spatial multimodal analysis of transcriptomes and metabolomes in tissues](https://www.nature.com/articles/s41587-023-01937-y)
 - [ ] [Single-Cell DNA Methylation Profiling: Technologies and Biological Applications](https://www.sciencedirect.com/science/article/abs/pii/S016777991830115X)
+- [ ] [Single-Cell Multiomics Techniques: From Conception to Applications](https://www.frontiersin.org/journals/cell-and-developmental-biology/articles/10.3389/fcell.2022.854317/full)
