@@ -18,3 +18,4 @@
 - [ ] [Identifying temporal and spatial patterns of variation from multimodal data using MEFISTO](https://www.nature.com/articles/s41592-021-01343-9)
 - [ ] [scNMT-seq enables joint profiling of chromatin accessibility DNA methylation and transcription in single cells](https://www.nature.com/articles/s41467-018-03149-4)
 - [ ] [Robust mapping of spatiotemporal trajectories and cell–cell interactions in healthy and diseased tissues](https://www.nature.com/articles/s41467-023-43120-6)
+- [ ] [Estimating the impact of single-cell RNA sequencing of human tissues on drug target validation](https://www.medrxiv.org/content/10.1101/2024.04.04.24305313v2)
