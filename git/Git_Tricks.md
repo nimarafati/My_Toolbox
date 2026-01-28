@@ -80,6 +80,11 @@ Finally, force push your changes to rewrite history:
 | `git pull --no-rebase` | Fetch remote changes and merge them into your branch (creates a merge commit if needed; no history rewrite). |
 | `git pull --ff-only` | Only update your branch if it can be fast-forwarded (no merge commit, no rebase); fails if histories have diverged. |
 
+**One-line rule of thumb**
+
+> **Private or local work** → git pull --rebase  
+> **Shared or published work** → git pull --no-rebase  
+
 
 ## Configuring default pull strategy
 | Command | What it configures / When to use |
